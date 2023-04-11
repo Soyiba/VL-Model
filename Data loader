@@ -1,0 +1,67 @@
+import glob
+import numpy as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import os
+from tqdm import tqdm
+import pandas as pd
+import numpy as np
+import os
+
+from sklearn.impute import SimpleImputer
+
+DATA_DIR_A ='/content/drive/MyDrive/RAWECCSV/L/'
+DATA_DIR_E ='/content/drive/MyDrive/RAWECCSV/NL/'
+#DATA_DIR_A ='/content/drive/MyDrive/Colab Notebooks/2Dvs3D comparision/2D/'
+#DATA_DIR_E ='/content/drive/MyDrive/Colab Notebooks/2Dvs3D comparision/Stereoscopic 3D/'
+LABEL_C1 = 0
+LABEL_C2 = 1
+
+def load_data():
+    
+    data = []
+    nbFiles = 0
+    # instead use os.listdir and open readline manually to save to 2D list or dictionary
+    for fname in tqdm(sorted(os.listdir(DATA_DIR_A))):
+       
+        
+        #imputer = SimpleImputer(strategy='mean')
+       
+        img = pd.read_csv(DATA_DIR_A + fname)
+        
+        #imputer.fit(img)
+       #img = imputer.transform(img)
+        #img = img[0:15000 ,:128]
+        #print('Shape of data: {}'.format(np.shape(img)))
+        img=img.transpose()
+        
+        #print('Shape of data: {}'.format(np.shape(img)))
+        #data.append([np.array(img), np.array(LABEL_C1)])
+        data.append(np.array((np.array(img), LABEL_C1)))
+        
+        nbFiles+=1
+        
+        
+    for fname in tqdm(sorted(os.listdir(DATA_DIR_E))):   
+        #imputer = SimpleImputer(strategy='mean')
+       
+        img = pd.read_csv(DATA_DIR_E + fname)
+        
+        #imputer.fit(img)
+        #img = imputer.transform(img)
+        #img = img[0:15000 ,:128]
+        #print('Shape of data: {}'.format(np.shape(img)))
+        img=img.transpose()
+        
+        #print('Shape of data: {}'.format(np.shape(img)))
+        #data.append([np.array(img), np.array(LABEL_C1)])
+        data.append(np.array((np.array(img), LABEL_C2)))
+        
+        nbFiles+=1
+          
+    return data
+
+data = load_data()
+print('\n')
+print('Total Files: {}'.format(len(data)))
+print('Shape of data: {}'.format(np.shape(data)))
