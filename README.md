@@ -1,1 +1,1 @@
-# VL-Model
+In this work, we propose an  electroencephalogram (EEG)-based solution for classification of Visual learners. The acquisition of EEG experimental data involved 34 univeristy students. Features from raw (without processing) EEG data are extracted using Long-short term memory (LSTM). Next the features are pass to Fully connected Convolution neural network (FCNN) for classification. The results demostarate the suitability of LSTM-FCNN model.
